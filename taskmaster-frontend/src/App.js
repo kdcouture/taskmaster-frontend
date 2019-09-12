@@ -18,12 +18,6 @@ function App() {
       .then( fetchedTasks => setTasks(fetchedTasks) );
   }
 
-  function _deleteTask(id) {
-    // fetch()
-    //  .method()
-    //  .then()
-  }
-
   useEffect( _getTasks, [] );
 
   return (
@@ -36,7 +30,7 @@ function App() {
             <li key={task.id} id="taskList">
               <details>
                 <summary>
-                  <span onClick={_deleteTask}>{task.title}</span>
+                  <span>{task.title}</span>
                 </summary>
                 <History history={task.history} />
               </details>
