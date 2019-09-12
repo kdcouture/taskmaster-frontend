@@ -1,0 +1,14 @@
+* {
+  background-color: slategray;
+}
+
+#taskList {
+  list-style: none;
+  border: 2px, solid, black;
+  margin-bottom: 5px;
+  color: lightyellow;
+}
+
+#task {
+  border: 2px, solid, black;
+}
