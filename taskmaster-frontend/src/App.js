@@ -66,6 +66,8 @@ function App() {
           return (
             <li key={task.id} id="taskList">
               <details>
+                {displayFlavicon(task.pic)}
+                {/* <img src={"http://taskmasterbucket.s3-website-us-west-2.amazonaws.com/resized-" + task.pic} alt='flavicon' /> */}
                 <summary>
                   <span>{task.title}</span>
                 </summary>
@@ -101,6 +103,16 @@ function History(props) {
         )
       })}
     </table>
+  )
+}
+
+function displayFlavicon(picUrl) {
+  let flavicon = "";
+  if(picUrl != null){
+    flavicon = "http://taskmasterbucket.s3-website-us-west-2.amazonaws.com/resized-" + picUrl.substring(82);
+  }
+  return (
+    <img src={flavicon} alt='flavicon'/>
   )
 }
 
