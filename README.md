@@ -14,4 +14,4 @@ Updated 9-17-2019 > Added AWS lambda function set to trigger on s3 put, post and
 Updated 9-13-2019 > Added form at the top of the site to upload an image to attach to a given task by id.
 
 #### Contributors 
-Marisha, Jack, Nick, Trevor, Melfi, Fabian, Chris, Brandon, Joachen
+Marisha, Jack, Nick, Trevor, Melfi, Fabian, Chris, Brandon, Joachen, Sapana
