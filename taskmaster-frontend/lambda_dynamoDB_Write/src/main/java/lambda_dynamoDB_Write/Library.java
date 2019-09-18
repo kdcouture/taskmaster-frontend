@@ -24,6 +24,7 @@ public class Library {
 
     public Task save(Task obj, Context context) {
         Task newTask = new Task();
+        logMe(context);
         newTask.setTitle(obj.getTitle());
         newTask.setDescription(obj.getDescription());
         newTask.setStatus("Available");
@@ -36,6 +37,30 @@ public class Library {
 
         return newTask;
     }
+
+    public Task update(String id, Context context) {
+
+        final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
+        DynamoDBMapper ddbMapper = new DynamoDBMapper(ddb);
+
+        Task taskToUpdate = ddbMapper.load(Task.class, id);
+
+        if (taskToUpdate.getStatus().equals("Available")) {
+            taskToUpdate.setStatus("Assigned");
+        } else if (taskToUpdate.getStatus().equals("Assigned")) {
+            taskToUpdate.setStatus("Accepted");
+        } else if (taskToUpdate.getStatus().equals("Accepted")) {
+            taskToUpdate.setStatus("Finished");
+        } else if (taskToUpdate.getStatus().equals("Finished")) {
+            return taskToUpdate;
+        }
+        taskToUpdate.addHistory(new HistoryObj("--> " + taskToUpdate.getStatus()));
+
+        ddbMapper.save(taskToUpdate);
+
+        return taskToUpdate;
+    }
+
 
     public boolean logMe(Context context) {
         LambdaLogger logger = context.getLogger();
