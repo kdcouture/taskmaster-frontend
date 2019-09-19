@@ -17,7 +17,7 @@ PUT: /tasks/{id}/assign/{assignee} - (TODO: Add lambda function) - Adds a assign
 [create_flavicon](https://github.com/kdcouture/taskmaster-frontend/tree/master/taskmaster-frontend/lambda_create_flavicon) - This lambda function is triggered when an file is uploaded to a s3 bucket and will create a resized version of png or jpg image files.  
   
 Note: Manual refresh is sometimes required to display new image.  
-Note: New images added to the resized bucket are set as private at first and require a manual switch to public before they display correctly.  
+  
   
 Updated 9-19-2019 > Created API gateway at > https://04e8aqkfe2.execute-api.us-west-2.amazonaws.com/Dev  
 Updated 9-17-2019 > Added AWS lambda function set to trigger on s3 put, post and multipart upload completed.  
