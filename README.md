@@ -13,7 +13,7 @@ PUT /tasks/{id}/assign/{assignee} - (TODO: Add lambda function) - Adds a assigne
   
 [dynamoDB_Read](https://github.com/kdcouture/taskmaster-frontend/blob/master/taskmaster-frontend/lambda_dynamoDB_Read/src/main/java/lambda_dynamoDB_Read/Library.java) - This library holds the code for lambda functions for all get routes.  
 [dynamoDB_Write](https://github.com/kdcouture/taskmaster-frontend/tree/master/taskmaster-frontend/lambda_dynamoDB_Write) - This library holds code for lambda functions invloced with the post and put route.  
-[create_flavicon](https://github.com/kdcouture/taskmaster-frontend/tree/master/taskmaster-frontend/lambda_create_flavicon)  
+[create_flavicon](https://github.com/kdcouture/taskmaster-frontend/tree/master/taskmaster-frontend/lambda_create_flavicon) - This lambda function is triggered when an file is uploaded to a s3 bucket and will create a resized version of png or jpg image files.  
   
 Note: Manual refresh is sometimes required to display new image.  
 Note: New images added to the resized bucket are set as private at first and require a manual switch to public before they display correctly.  
