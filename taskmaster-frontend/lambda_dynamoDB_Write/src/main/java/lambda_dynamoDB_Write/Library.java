@@ -11,6 +11,7 @@ import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.events.*;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 
 import javax.json.JsonObject;
@@ -35,15 +36,17 @@ public class Library {
 
         ddbMapper.save(newTask);
 
+//        Response response = new Response(200, "\"body\":\"body\"");
+
         return newTask;
     }
 
-    public Task update(String id, Context context) {
-
+    public APIGatewayProxyResponseEvent update(APIGatewayProxyRequestEvent event){
+        Map<String,String> id = event.getPathParameters();
+        System.out.println(id.get("id"));
         final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
         DynamoDBMapper ddbMapper = new DynamoDBMapper(ddb);
-
-        Task taskToUpdate = ddbMapper.load(Task.class, id);
+        Task taskToUpdate = ddbMapper.load(Task.class,id.get("id"));
 
         if (taskToUpdate.getStatus().equals("Available")) {
             taskToUpdate.setStatus("Assigned");
@@ -52,13 +55,25 @@ public class Library {
         } else if (taskToUpdate.getStatus().equals("Accepted")) {
             taskToUpdate.setStatus("Finished");
         } else if (taskToUpdate.getStatus().equals("Finished")) {
-            return taskToUpdate;
+            System.out.println("Already done!");
         }
         taskToUpdate.addHistory(new HistoryObj("--> " + taskToUpdate.getStatus()));
-
         ddbMapper.save(taskToUpdate);
+        APIGatewayProxyResponseEvent res = new APIGatewayProxyResponseEvent();
+        res.setBody("Task updated!");
+        return res;
+    }
 
-        return taskToUpdate;
+    public Task assignTask(String id, String assignee) {
+        final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
+        DynamoDBMapper ddbMapper = new DynamoDBMapper(ddb);
+
+        Task taskToAssign = ddbMapper.load(Task.class, id);
+        taskToAssign.setAssignee(assignee);
+        taskToAssign.addHistory(new HistoryObj("--> Assigned to " + assignee));
+        ddbMapper.save(taskToAssign);
+
+        return taskToAssign;
     }
 
 
