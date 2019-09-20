@@ -5,10 +5,11 @@ For backend information please checkout the repo [Group Work: here](https://gith
 [https://04e8aqkfe2.execute-api.us-west-2.amazonaws.com/Dev](https://04e8aqkfe2.execute-api.us-west-2.amazonaws.com/Dev)
 ##### Routes
 GET: /tasks - Displays all users.  
-GET: /tasks/{id} - (TODO: Change id to user) - Displays all tasks assigned to the user.  
+GET: /tasks/{user} - Displays all tasks assigned to the user.  
 POST: /tasks - Adds a new task to the database.  
+DELETE: /tasks/{id} - Deletes a given task.  
 PUT: /tasks/{id}/state - Updates the history on a given task.  
-PUT: /tasks/{id}/assign/{assignee} - (TODO: Add lambda function) - Adds a assignee to a task.  
+PUT: /tasks/{id}/assign/{assignee} - Adds a assignee to a task.  
 
 #### Lambda Functions
   
@@ -18,7 +19,7 @@ PUT: /tasks/{id}/assign/{assignee} - (TODO: Add lambda function) - Adds a assign
   
 Note: Manual refresh is sometimes required to display new image.  
   
-  
+Updated 9-20-2019 > Deployed API gateway with all routes working (no images) > https://04e8aqkfe2.execute-api.us-west-2.amazonaws.com/Dev  
 Updated 9-19-2019 > Created API gateway at > https://04e8aqkfe2.execute-api.us-west-2.amazonaws.com/Dev  
 Updated 9-17-2019 > Added AWS lambda function set to trigger on s3 put, post and multipart upload completed.  
 Updated 9-13-2019 > Added form at the top of the site to upload an image to attach to a given task by id.
