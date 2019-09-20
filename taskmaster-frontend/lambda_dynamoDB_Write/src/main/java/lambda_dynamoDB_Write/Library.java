@@ -46,9 +46,10 @@ public class Library {
         System.out.println(id.get("id"));
         final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
         DynamoDBMapper ddbMapper = new DynamoDBMapper(ddb);
+
         Task taskToUpdate = ddbMapper.load(Task.class,id.get("id"));
 
-        if (taskToUpdate.getStatus().equals("Available")) {
+        if (taskToUpdate != null && taskToUpdate.getStatus().equals("Available")) {
             taskToUpdate.setStatus("Assigned");
         } else if (taskToUpdate.getStatus().equals("Assigned")) {
             taskToUpdate.setStatus("Accepted");
@@ -58,22 +59,41 @@ public class Library {
             System.out.println("Already done!");
         }
         taskToUpdate.addHistory(new HistoryObj("--> " + taskToUpdate.getStatus()));
+
         ddbMapper.save(taskToUpdate);
         APIGatewayProxyResponseEvent res = new APIGatewayProxyResponseEvent();
         res.setBody("Task updated!");
         return res;
     }
 
-    public Task assignTask(String id, String assignee) {
+    public APIGatewayProxyResponseEvent assignTask(APIGatewayProxyRequestEvent event) {
+        Map<String,String> urlParams = event.getPathParameters();
+        System.out.println(urlParams.get("id"));
+        System.out.println(urlParams.get("assignee"));
         final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
         DynamoDBMapper ddbMapper = new DynamoDBMapper(ddb);
 
-        Task taskToAssign = ddbMapper.load(Task.class, id);
-        taskToAssign.setAssignee(assignee);
-        taskToAssign.addHistory(new HistoryObj("--> Assigned to " + assignee));
+        Task taskToAssign = ddbMapper.load(Task.class, urlParams.get("id"));
+        taskToAssign.setAssignee(urlParams.get("assignee"));
+        taskToAssign.addHistory(new HistoryObj("--> Assigned to " + urlParams.get("assignee")));
         ddbMapper.save(taskToAssign);
 
-        return taskToAssign;
+        APIGatewayProxyResponseEvent res = new APIGatewayProxyResponseEvent();
+        res.setBody("Task Assigned!");
+        return res;
+    }
+
+    public APIGatewayProxyResponseEvent deleteTask(APIGatewayProxyRequestEvent event) {
+        Map<String,String> urlParams = event.getPathParameters();
+        System.out.println(urlParams.get("id"));
+        final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
+        DynamoDBMapper ddbMapper = new DynamoDBMapper(ddb);
+        Task taskToDelete = ddbMapper.load(Task.class, urlParams.get("id"));
+        ddbMapper.delete(taskToDelete);
+
+        APIGatewayProxyResponseEvent res = new APIGatewayProxyResponseEvent();
+        res.setBody("Task Deleted!");
+        return res;
     }
 
 

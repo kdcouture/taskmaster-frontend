@@ -22,10 +22,12 @@ import java.util.*;
 
 public class Library {
 
-    public List<Task> getAllTasks() {
+    public APIGatewayProxyResponseEvent getAllTasks() {
         final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
         DynamoDBMapper ddbMapper = new DynamoDBMapper(ddb);
-        return ddbMapper.scan(Task.class, new DynamoDBScanExpression());
+        APIGatewayProxyResponseEvent res = new APIGatewayProxyResponseEvent();
+        res.setBody(ddbMapper.scan(Task.class, new DynamoDBScanExpression()));
+        return res;
     }
 
     public List<Task> getTaskByAssignee(JsonObject input) {
