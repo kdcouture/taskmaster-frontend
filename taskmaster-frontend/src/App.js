@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react';
 
 import './CSS/style.css';
 
-const API = 'http://newenv.iam9ckq2yg.us-west-2.elasticbeanstalk.com/api/v1/tasks';
+// const API = 'http://newenv.iam9ckq2yg.us-west-2.elasticbeanstalk.com/api/v1/tasks';
+const API = 'https://04e8aqkfe2.execute-api.us-west-2.amazonaws.com/Dev/tasks'
 
 let form = new FormData();
 
@@ -63,6 +64,7 @@ function App() {
       <p>Note: Users may click on the drop down arrows for more information.</p>
       <ul>
         {tasks.map( (task,idx) => {
+          // console.log(task);
           return (
             <li key={task.id} id="taskList">
               <details>
