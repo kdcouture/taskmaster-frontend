@@ -9,7 +9,7 @@ https://04e8aqkfe2.execute-api.us-west-2.amazonaws.com/Dev/tasks
 GET: /tasks/{user} - Displays all tasks assigned to the user.  
 https://04e8aqkfe2.execute-api.us-west-2.amazonaws.com/Dev/tasks/{user}  
 POST: /tasks - Adds a new task to the database.  
-https://04e8aqkfe2.execute-api.us-west-2.amazonaws.com/Dev/tasks
+https://04e8aqkfe2.execute-api.us-west-2.amazonaws.com/Dev/tasks  
 DELETE: /tasks/{id} - Deletes a given task.  
 https://04e8aqkfe2.execute-api.us-west-2.amazonaws.com/Dev/tasks/{id}  
 PUT: /tasks/{id}/state - Updates the history on a given task.  
