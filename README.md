@@ -5,11 +5,17 @@ For backend information please checkout the repo [Group Work: here](https://gith
 [https://04e8aqkfe2.execute-api.us-west-2.amazonaws.com/Dev](https://04e8aqkfe2.execute-api.us-west-2.amazonaws.com/Dev)
 ##### Routes
 GET: /tasks - Displays all users.  
+https://04e8aqkfe2.execute-api.us-west-2.amazonaws.com/Dev/tasks  
 GET: /tasks/{user} - Displays all tasks assigned to the user.  
+https://04e8aqkfe2.execute-api.us-west-2.amazonaws.com/Dev/tasks/{user}  
 POST: /tasks - Adds a new task to the database.  
+https://04e8aqkfe2.execute-api.us-west-2.amazonaws.com/Dev/tasks
 DELETE: /tasks/{id} - Deletes a given task.  
+https://04e8aqkfe2.execute-api.us-west-2.amazonaws.com/Dev/tasks/{id}  
 PUT: /tasks/{id}/state - Updates the history on a given task.  
+https://04e8aqkfe2.execute-api.us-west-2.amazonaws.com/Dev/tasks/{id}/state  
 PUT: /tasks/{id}/assign/{assignee} - Adds a assignee to a task.  
+https://04e8aqkfe2.execute-api.us-west-2.amazonaws.com/Dev/tasks/{id}/assign/{assignee}  
 
 #### Lambda Functions
   
